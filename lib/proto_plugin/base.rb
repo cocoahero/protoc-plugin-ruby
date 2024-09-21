@@ -6,13 +6,13 @@ require "google/protobuf/plugin_pb"
 module ProtoPlugin
   class Base
     class << self
-      def run(input: $stdin, output: $stdout)
+      def run!(input: $stdin, output: $stdout)
         request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode(
           input.read,
         )
 
         plugin = new(request: request)
-        plugin.generate
+        plugin.run
 
         result = plugin.response
         output.write(result.to_proto)
@@ -41,7 +41,7 @@ module ProtoPlugin
       )
     end
 
-    def generate
+    def run
     end
   end
 end
