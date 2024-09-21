@@ -1,5 +1,7 @@
-# Proto::Plugin
+# ProtoPlugin
 
+[![Lint](https://github.com/cocoahero/proto_plugin/actions/workflows/lint.yml/badge.svg)](https://github.com/cocoahero/proto_plugin/actions/workflows/lint.yml)
+[![Test](https://github.com/cocoahero/proto_plugin/actions/workflows/test.yml/badge.svg)](https://github.com/cocoahero/proto_plugin/actions/workflows/test.yml)
 [![Gem Version](https://badge.fury.io/rb/proto_plugin.svg)](https://badge.fury.io/rb/proto_plugin)
 
 ## Installation
