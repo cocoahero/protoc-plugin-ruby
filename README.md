@@ -10,9 +10,9 @@ gem install proto_plugin
 
 ## Usage
 
-Creating a `protoc` plugin is as simple as creating a new executable script. The name of the file must follow the format `protoc-gen-[plugin-name]`.
+Creating a `protoc` plugin is as simple as creating a new executable script.
 
-As an example, the below file could be named `protoc-gen-mycoolplugin`.
+The name of the file must follow the format `protoc-gen-[plugin-name]`. As an example, the below file could be named `protoc-gen-mycoolplugin`.
 
 ```ruby
 #! /usr/bin/env ruby
@@ -34,7 +34,7 @@ end
 MyCoolPlugin.run!
 ```
 
-To invoke the plugin, first make sure you have `protoc` installed. Then in a terminal, run:
+To invoke the plugin, first make sure you have `protoc` [installed](https://github.com/protocolbuffers/protobuf#protobuf-compiler-installation). Then in a terminal, run:
 
 ```bash
 protoc --plugin=path/to/protoc-gen-mycoolplugin --mycoolplugin_out=. input.proto
