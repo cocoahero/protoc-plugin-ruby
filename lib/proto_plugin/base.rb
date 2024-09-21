@@ -7,11 +7,12 @@ module ProtoPlugin
   class Base
     class << self
       def run!(input: $stdin, output: $stdout)
-        request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode(
-          input.read,
+        plugin = new(
+          request: Google::Protobuf::Compiler::CodeGeneratorRequest.decode(
+            input.read,
+          ),
         )
 
-        plugin = new(request: request)
         plugin.run
 
         result = plugin.response

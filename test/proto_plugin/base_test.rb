@@ -46,7 +46,7 @@ module ProtoPlugin
     test "run! calls run on the plugin" do
       input = StringIO.new
       output = StringIO.new
-      response = TestPlugin.run!(input:, output:)
+      response = TestPlugin.run!(input: input, output: output)
 
       assert_equal(1, response.file.count)
       assert_equal("test.rb", response.file.first.name)
@@ -56,7 +56,7 @@ module ProtoPlugin
     test "run! writes the response to specified output stream" do
       input = StringIO.new
       output = StringIO.new
-      response = TestPlugin.run!(input:, output:)
+      response = TestPlugin.run!(input: input, output: output)
       assert_equal(response.to_proto, output.string)
     end
   end
