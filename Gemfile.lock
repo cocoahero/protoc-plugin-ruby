@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    proto_plugin (0.1.0.pre.alpha.1)
+    proto_plugin (0.1.0.pre.alpha.2)
       google-protobuf (~> 4.28)
 
 GEM
