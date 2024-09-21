@@ -1,3 +1,5 @@
+name: Publish to Rubygems
+
 on:
   release:
     types: [published]
