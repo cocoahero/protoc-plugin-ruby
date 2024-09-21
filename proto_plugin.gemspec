@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir["lib/**/*", "LICENSE.txt", "README.md"]
 
   spec.bindir = "exe"
-  spec.executables = []
+  spec.executables = ["protoc-gen-proto-plugin-demo"]
 
   spec.require_paths = ["lib"]
 

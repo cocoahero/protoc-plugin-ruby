@@ -1,0 +1,17 @@
+#! /usr/bin/env ruby
+# frozen_string_literal: true
+
+require "proto_plugin"
+
+class Demo < ProtoPlugin::Base
+  def run
+    request.file_to_generate.each do |f|
+      name = File.basename(f, ".proto")
+      add_file(name: "#{name}.txt", content: <<~TXT)
+        This file was generated from #{name}.proto!
+      TXT
+    end
+  end
+end
+
+Demo.run!
