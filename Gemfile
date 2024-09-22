@@ -7,3 +7,5 @@ gemspec
 gem "rake"
 gem "minitest"
 gem "rubocop-shopify", require: false
+
+gem "yard", "~> 0.9.37"

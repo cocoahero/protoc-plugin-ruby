@@ -42,6 +42,7 @@ GEM
       rubocop (~> 1.51)
     ruby-progressbar (1.13.0)
     unicode-display_width (2.5.0)
+    yard (0.9.37)
 
 PLATFORMS
   arm64-darwin-23
@@ -52,6 +53,7 @@ DEPENDENCIES
   proto_plugin!
   rake
   rubocop-shopify
+  yard (~> 0.9.37)
 
 BUNDLED WITH
    2.5.18

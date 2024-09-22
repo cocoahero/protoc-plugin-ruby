@@ -4,8 +4,31 @@ require "google/protobuf"
 require "google/protobuf/plugin_pb"
 
 module ProtoPlugin
+  # The primary base class to inherit from when implementing a plugin.
+  #
+  # ```ruby
+  # require 'proto_plugin'
+  #
+  # class MyCoolPlugin < ProtoPlugin::Base
+  #   def run
+  #     # override to provide your implementation
+  #   end
+  # end
+  #
+  # MyCoolPlugin.run!
+  # ````
+  # @abstract
   class Base
     class << self
+      ##
+      # The preferred way of invoking a plugin.
+      #
+      # Decodes a `Google::Protobuf::Compiler::CodeGeneratorRequest` message
+      # from `input:`, invokes the plugin by calling `#run`, and then encodes
+      # `response` to the stream specified by `output:`.
+      #
+      # @param input [IO] The stream that the request is decoded from.
+      # @param output [IO] The stream that the response is encoded to.
       def run!(input: $stdin, output: $stdout)
         plugin = new(
           request: Google::Protobuf::Compiler::CodeGeneratorRequest.decode(
@@ -21,10 +44,16 @@ module ProtoPlugin
       end
     end
 
+    # The request message the plugin was initialized with.
+    # @return [Google::Protobuf::Compiler::CodeGeneratorRequest]
     attr_reader :request
 
+    # The response message to be sent back to `protoc`.
+    # @return [Google::Protobuf::Compiler::CodeGeneratorResponse]
     attr_reader :response
 
+    # Initializes a new instance of the plugin with a given
+    # `Google::Protobuf::Compiler::CodeGeneratorRequest`.
     def initialize(request:)
       @request = request
       @response = Google::Protobuf::Compiler::CodeGeneratorResponse.new(
@@ -32,16 +61,29 @@ module ProtoPlugin
       )
     end
 
+    # Returns the list of supported `CodeGeneratorResponse::Feature` values by the plugin. The returned
+    # values are bitwise or-ed together and set on `response`.
+    #
+    # Defaults to `CodeGeneratorResponse::Feature::FEATURE_NONE`.
     def supported_features
       [Google::Protobuf::Compiler::CodeGeneratorResponse::Feature::FEATURE_NONE]
     end
 
-    def add_file(name:, content:)
+    # Convenience method for appending a `CodeGeneratorResponse::File` message to `response`.
+    #
+    # The path is relative to the directory specified when invoking `protoc`. For example,
+    # specifiying `--myplugin_out=gen` will result in `gen/:path`.
+    #
+    # @param path [String] The relative path to write the file's content.
+    # @param content [String] The content which will be written to the file.
+    def add_file(path:, content:)
       @response.file << Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
-        name: name, content: content,
+        name: path, content: content,
       )
     end
 
+    # The primary entrypoint. Override to provide your plugin's implementation.
+    # @abstract
     def run
     end
   end
