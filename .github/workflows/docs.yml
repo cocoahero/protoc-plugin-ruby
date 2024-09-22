@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches: ["main"]
-    
+
 permissions:
   contents: read
   pages: write
@@ -25,8 +25,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Generate Docs
+        run: bundle exec yard doc
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
