@@ -13,7 +13,7 @@ module ProtoPlugin
       end
 
       def run
-        add_file(name: "test.rb", content: "TestPlugin#generate")
+        add_file(path: "test.rb", content: "TestPlugin#generate")
       end
     end
 
@@ -23,8 +23,8 @@ module ProtoPlugin
     end
 
     test "adding files" do
-      @plugin.add_file(name: "foo.txt", content: "Hello World!")
-      @plugin.add_file(name: "bar.txt", content: "Hello World, Again!")
+      @plugin.add_file(path: "foo.txt", content: "Hello World!")
+      @plugin.add_file(path: "bar.txt", content: "Hello World, Again!")
 
       assert_equal(2, @plugin.response.file.count)
 
