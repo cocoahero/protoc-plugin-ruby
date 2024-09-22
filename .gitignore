@@ -1,10 +1,10 @@
-/.bundle/
+/.bundle
 /.yardoc
-/_yardoc/
+/_yardoc
 /coverage/
-/doc/
-/pkg/
+/doc
+/pkg
 /spec/reports/
-/tmp/
-/gen/
-.vscode/settings.json
+/tmp
+/gen
+.vscode
