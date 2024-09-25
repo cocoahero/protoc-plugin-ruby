@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
     "source_code_uri" => spec.homepage,
     "documentation_uri" => "https://cocoahero.github.com/proto_plugin",
     "allowed_push_host" => "https://rubygems.org",
+    "funding_uri" => "https://github.com/sponsors/cocoahero",
   }
 
   spec.files = Dir["lib/**/*", "LICENSE.txt", "README.md"]
