@@ -35,6 +35,25 @@ module ProtoPlugin
       assert_equal("Hello World, Again!", @plugin.response.file.last.content)
     end
 
+    test "parameters" do
+      plugin = TestPlugin.new(request: Google::Protobuf::Compiler::CodeGeneratorRequest.new(
+        parameter: "foo=bar,bare",
+      ))
+
+      expected = {
+        "foo" => "bar",
+        "bare" => nil,
+      }
+
+      assert_equal(expected, plugin.parameters)
+    end
+
+    test "parameters when request.parameter is missing" do
+      plugin = TestPlugin.new(request: Google::Protobuf::Compiler::CodeGeneratorRequest.new)
+
+      assert_equal({}, plugin.parameters)
+    end
+
     test "supported features" do
       # bitwise or of enum values
       # https://github.com/protocolbuffers/protobuf/blob/v28.0/src/google/protobuf/compiler/plugin.proto#L94-L96

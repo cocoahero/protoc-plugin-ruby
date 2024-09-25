@@ -61,6 +61,19 @@ module ProtoPlugin
       )
     end
 
+    # Convenience method for accessing the parameters passed to the plugin.
+    #
+    # @example `protoc --myplugin_opt=key=value --myplugin_opt=bare`
+    #  {"key" => "value", "bare" => nil}
+    #
+    # @return [Hash]
+    def parameters
+      @parameters ||= request.parameter&.split(",")&.each_with_object({}) do |param, hash|
+        key, value = param.split("=")
+        hash[key] = value
+      end
+    end
+
     # Returns the list of supported `CodeGeneratorResponse::Feature` values by the plugin. The returned
     # values are bitwise or-ed together and set on `response`.
     #

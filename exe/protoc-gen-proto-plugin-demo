@@ -7,7 +7,9 @@ class Demo < ProtoPlugin::Base
   def run
     request.file_to_generate.each do |f|
       name = File.basename(f, ".proto")
-      add_file(name: "#{name}.txt", content: <<~TXT)
+      add_file(path: "#{name}.txt", content: <<~TXT)
+        Parameters: #{parameters}
+
         This file was generated from #{name}.proto!
       TXT
     end
