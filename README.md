@@ -12,9 +12,6 @@ gem install proto_plugin
 
 ## Usage
 
-> [!TIP]
-> For more details on the available API, see the docs: https://cocoahero.github.io/proto_plugin
-
 Creating a `protoc` plugin is as simple as creating a new executable script.
 
 The name of the file must follow the format `protoc-gen-[plugin-name]`. As an example, the below file could be named `protoc-gen-mycoolplugin`.
@@ -38,6 +35,9 @@ end
 
 MyCoolPlugin.run!
 ```
+
+> [!TIP]
+> For more details on the available API, see the docs: https://cocoahero.github.io/proto_plugin
 
 To invoke the plugin, first make sure you have `protoc` [installed](https://github.com/protocolbuffers/protobuf#protobuf-compiler-installation). Then in a terminal, run:
 
