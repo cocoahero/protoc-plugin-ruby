@@ -12,7 +12,8 @@ gem install proto_plugin
 
 ## Usage
 
-> API Documentation: https://cocoahero.github.io/proto_plugin
+> [!TIP]
+> For more details on the available API, see the docs: https://cocoahero.github.io/proto_plugin
 
 Creating a `protoc` plugin is as simple as creating a new executable script.
 
