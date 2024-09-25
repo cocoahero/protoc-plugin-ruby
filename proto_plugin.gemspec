@@ -9,15 +9,18 @@ Gem::Specification.new do |spec|
   spec.email = ["jonathan@jmb.dev"]
   spec.license = "MIT"
 
-  spec.summary = "Easily build `protoc` plugins in Ruby."
-
   spec.required_ruby_version = "~> 3.0"
 
-  spec.homepage = "https://github.com/cocoahero/proto_plugin"
-  spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = spec.homepage
+  spec.summary = "Easily build protobuf compiler plugins in Ruby."
 
-  spec.metadata["allowed_push_host"] = "https://rubygems.org"
+  spec.homepage = "https://github.com/cocoahero/proto_plugin"
+
+  spec.metadata = {
+    "homepage_uri" => spec.homepage,
+    "source_code_uri" => spec.homepage,
+    "documentation_uri" => "https://cocoahero.github.com/proto_plugin",
+    "allowed_push_host" => "https://rubygems.org",
+  }
 
   spec.files = Dir["lib/**/*", "LICENSE.txt", "README.md"]
 
