@@ -74,6 +74,22 @@ module ProtoPlugin
       end
     end
 
+    # Returns an array of `Google::Protobuf::FileDescriptorProto` representing the files that
+    # were passed to `protoc` to be generated.
+    #
+    # @example `protoc --myplugin_out=. input_one.proto input_two.proto`
+    #   [
+    #     <Google::Protobuf::FileDescriptorProto: name: "input_one.proto">,
+    #     <Google::Protobuf::FileDescriptorProto: name: "input_two.proto">
+    #   ]
+    #
+    # @return [Array]
+    def files_to_generate
+      @files_to_generate ||= request.file_to_generate.filter_map do |filename|
+        lookup_file(name: filename)
+      end
+    end
+
     # Finds a `Google::Protobuf::FileDescriptorProto` with the given `name` attribute.
     #
     # @return [Google::Protobuf::FileDescriptorProto]

@@ -35,6 +35,14 @@ module ProtoPlugin
       assert_equal("Hello World, Again!", @plugin.response.file.last.content)
     end
 
+    test "files_to_generate" do
+      files = @plugin.files_to_generate
+
+      assert_equal(1, files.count)
+      assert_instance_of(Google::Protobuf::FileDescriptorProto, files.first)
+      assert_equal("test/fixtures/simple/simple.proto", files.first.name)
+    end
+
     test "lookup_file" do
       refute_nil(@plugin.lookup_file(name: "test/fixtures/simple/simple.proto"))
       assert_nil(@plugin.lookup_file(name: "test/fixtures/simple/missing.proto"))
