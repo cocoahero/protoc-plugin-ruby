@@ -1,8 +1,8 @@
 name: Run Tests
 
 on:
-  push:
   pull_request:
+    types: [opened, synchronize]
 
 permissions:
   contents: read
