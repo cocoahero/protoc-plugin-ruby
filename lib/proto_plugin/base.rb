@@ -74,6 +74,18 @@ module ProtoPlugin
       end
     end
 
+    # Finds a `Google::Protobuf::FileDescriptorProto` with the given `name` attribute.
+    #
+    # @return [Google::Protobuf::FileDescriptorProto]
+    # @return [nil] if the file was not found
+    def lookup_file(name:)
+      @index_by_filename ||= @request.proto_file.each_with_object({}) do |fd, hash|
+        hash[fd.name] = fd
+      end
+
+      @index_by_filename[name]
+    end
+
     # Returns the list of supported `CodeGeneratorResponse::Feature` values by the plugin. The returned
     # values are bitwise or-ed together and set on `response`.
     #

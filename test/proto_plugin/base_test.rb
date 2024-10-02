@@ -35,6 +35,11 @@ module ProtoPlugin
       assert_equal("Hello World, Again!", @plugin.response.file.last.content)
     end
 
+    test "lookup_file" do
+      refute_nil(@plugin.lookup_file(name: "test/fixtures/simple/simple.proto"))
+      assert_nil(@plugin.lookup_file(name: "test/fixtures/simple/missing.proto"))
+    end
+
     test "parameters" do
       plugin = TestPlugin.new(request: Google::Protobuf::Compiler::CodeGeneratorRequest.new(
         parameter: "foo=bar,bare",
