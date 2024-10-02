@@ -18,7 +18,7 @@ module ProtoPlugin
     end
 
     setup do
-      @request = Google::Protobuf::Compiler::CodeGeneratorRequest.new
+      @request = requests(:simple)
       @plugin = TestPlugin.new(request: @request)
     end
 

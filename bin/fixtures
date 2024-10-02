@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "proto_plugin"
+require "tmpdir"
+
+class FixtureUpdater < ProtoPlugin::Base
+  def run
+    File.write(parameters["dest"], request.to_proto)
+  end
+end
+
+if ENV["RUN"]
+  FixtureUpdater.run!
+else
+  dest = File.join("test", "fixtures", "simple.pb")
+  Dir.mktmpdir do |tmp|
+    %x(
+      RUN=1 \
+      protoc \
+      --plugin=protoc-gen-fixtures=#{__FILE__} \
+      --fixtures_opt=dest=#{dest} \
+      --fixtures_out=#{tmp} \
+      test/fixtures/simple/*.proto
+    )
+  end
+end
