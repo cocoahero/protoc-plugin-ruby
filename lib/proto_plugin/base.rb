@@ -74,6 +74,34 @@ module ProtoPlugin
       end
     end
 
+    # Returns an array of `Google::Protobuf::FileDescriptorProto` representing the files that
+    # were passed to `protoc` to be generated.
+    #
+    # @example `protoc --myplugin_out=. input_one.proto input_two.proto`
+    #   [
+    #     <Google::Protobuf::FileDescriptorProto: name: "input_one.proto">,
+    #     <Google::Protobuf::FileDescriptorProto: name: "input_two.proto">
+    #   ]
+    #
+    # @return [Array]
+    def files_to_generate
+      @files_to_generate ||= request.file_to_generate.filter_map do |filename|
+        lookup_file(name: filename)
+      end
+    end
+
+    # Finds a `Google::Protobuf::FileDescriptorProto` with the given `name` attribute.
+    #
+    # @return [Google::Protobuf::FileDescriptorProto]
+    # @return [nil] if the file was not found
+    def lookup_file(name:)
+      @index_by_filename ||= @request.proto_file.each_with_object({}) do |fd, hash|
+        hash[fd.name] = fd
+      end
+
+      @index_by_filename[name]
+    end
+
     # Returns the list of supported `CodeGeneratorResponse::Feature` values by the plugin. The returned
     # values are bitwise or-ed together and set on `response`.
     #
