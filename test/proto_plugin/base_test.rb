@@ -17,12 +17,12 @@ module ProtoPlugin
       end
     end
 
-    setup do
+    def setup
       @request = requests(:simple)
       @plugin = TestPlugin.new(request: @request)
     end
 
-    test "adding files" do
+    def test_adding_files
       @plugin.add_file(path: "foo.txt", content: "Hello World!")
       @plugin.add_file(path: "bar.txt", content: "Hello World, Again!")
 
@@ -35,7 +35,7 @@ module ProtoPlugin
       assert_equal("Hello World, Again!", @plugin.response.file.last.content)
     end
 
-    test "files_to_generate" do
+    def test_files_to_generate
       files = @plugin.files_to_generate
 
       assert_equal(1, files.count)
@@ -43,12 +43,12 @@ module ProtoPlugin
       assert_equal("test/fixtures/simple/simple.proto", files.first.name)
     end
 
-    test "lookup_file" do
+    def test_lookup_file
       refute_nil(@plugin.lookup_file(name: "test/fixtures/simple/simple.proto"))
       assert_nil(@plugin.lookup_file(name: "test/fixtures/simple/missing.proto"))
     end
 
-    test "parameters" do
+    def test_parameters
       plugin = TestPlugin.new(request: Google::Protobuf::Compiler::CodeGeneratorRequest.new(
         parameter: "foo=bar,bare",
       ))
@@ -61,13 +61,13 @@ module ProtoPlugin
       assert_equal(expected, plugin.parameters)
     end
 
-    test "parameters when request.parameter is missing" do
+    def test_parameters_with_empty_request
       plugin = TestPlugin.new(request: Google::Protobuf::Compiler::CodeGeneratorRequest.new)
 
       assert_equal({}, plugin.parameters)
     end
 
-    test "supported features" do
+    def test_supported_features
       # bitwise or of enum values
       # https://github.com/protocolbuffers/protobuf/blob/v28.0/src/google/protobuf/compiler/plugin.proto#L94-L96
       expected = Google::Protobuf::Compiler::CodeGeneratorResponse::Feature::FEATURE_PROTO3_OPTIONAL |
@@ -75,7 +75,7 @@ module ProtoPlugin
       assert_equal(expected, @plugin.response.supported_features)
     end
 
-    test "run! calls run on the plugin" do
+    def test_run_bang_calls_instance_run
       input = StringIO.new
       output = StringIO.new
       response = TestPlugin.run!(input: input, output: output)
@@ -85,7 +85,7 @@ module ProtoPlugin
       assert_equal("TestPlugin#generate", response.file.first.content)
     end
 
-    test "run! writes the response to specified output stream" do
+    def test_run_bang_writes_to_specified_output_stream
       input = StringIO.new
       output = StringIO.new
       response = TestPlugin.run!(input: input, output: output)
