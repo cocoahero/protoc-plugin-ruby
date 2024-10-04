@@ -4,8 +4,10 @@ module ProtoPlugin
   # A wrapper class around `Google::Protobuf::FileDescriptorProto`
   # which provides helpers and more idiomatic Ruby access patterns.
   #
-  # Any method not defined directly is delegated to the
-  # descriptor the wrapper was intialized with.
+  # Any method not defined directly is delegated to the descriptor the wrapper was intialized with.
+  #
+  # @see https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/descriptor.proto#L97
+  #   Google::Protobuf::FileDescriptorProto
   class FileDescriptor < SimpleDelegator
     # @return [Google::Protobuf::FileDescriptorProto]
     attr_reader :descriptor
