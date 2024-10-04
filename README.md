@@ -24,7 +24,7 @@ require "proto_plugin"
 class MyCoolPlugin < ProtoPlugin::Base
   def run
     request.file_to_generate.each do |f|
-      name = File.basename(f, ".proto")
+      name = File.basename(f.name, ".proto")
 
       add_file(name: "#{name}.txt", content: <<~TXT)
         This file was generated from #{name}.proto!

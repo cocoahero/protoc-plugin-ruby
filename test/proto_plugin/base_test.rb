@@ -39,7 +39,7 @@ module ProtoPlugin
       files = @plugin.files_to_generate
 
       assert_equal(1, files.count)
-      assert_instance_of(Google::Protobuf::FileDescriptorProto, files.first)
+      assert_instance_of(FileDescriptor, files.first)
       assert_equal("test/fixtures/simple/simple.proto", files.first.name)
     end
 
