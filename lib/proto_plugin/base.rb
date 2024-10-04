@@ -74,13 +74,13 @@ module ProtoPlugin
       end
     end
 
-    # Returns an array of `Google::Protobuf::FileDescriptorProto` representing the files that
+    # Returns an array of `ProtoPlugin::FileDescriptor` representing the files that
     # were passed to `protoc` to be generated.
     #
     # @example `protoc --myplugin_out=. input_one.proto input_two.proto`
     #   [
-    #     <Google::Protobuf::FileDescriptorProto: name: "input_one.proto">,
-    #     <Google::Protobuf::FileDescriptorProto: name: "input_two.proto">
+    #     <ProtoPlugin::FileDescriptor: name: "input_one.proto">,
+    #     <ProtoPlugin::FileDescriptor: name: "input_two.proto">
     #   ]
     #
     # @return [Array]
@@ -90,13 +90,13 @@ module ProtoPlugin
       end
     end
 
-    # Finds a `Google::Protobuf::FileDescriptorProto` with the given `name` attribute.
+    # Finds an imported file descriptor with the given `name` attribute.
     #
-    # @return [Google::Protobuf::FileDescriptorProto]
+    # @return [ProtoPlugin::FileDescriptor]
     # @return [nil] if the file was not found
     def lookup_file(name:)
       @index_by_filename ||= @request.proto_file.each_with_object({}) do |fd, hash|
-        hash[fd.name] = fd
+        hash[fd.name] = FileDescriptor.new(fd)
       end
 
       @index_by_filename[name]
