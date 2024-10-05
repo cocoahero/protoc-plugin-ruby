@@ -4,7 +4,7 @@ module ProtoPlugin
   # A wrapper class around `Google::Protobuf::FileDescriptorProto`
   # which provides helpers and more idiomatic Ruby access patterns.
   #
-  # Any method not defined directly is delegated to the descriptor the wrapper was intialized with.
+  # Any method not defined directly is delegated to the descriptor the wrapper was initialized with.
   #
   # @see https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/descriptor.proto#L97
   #   Google::Protobuf::FileDescriptorProto
@@ -16,6 +16,12 @@ module ProtoPlugin
     def initialize(descriptor)
       super
       @descriptor = descriptor
+    end
+
+    def messages
+      @messages ||= @descriptor.message_type.map do |m|
+        MessageDescriptor.new(m, self)
+      end
     end
 
     # Returns the Ruby namespace (module) for the file.
