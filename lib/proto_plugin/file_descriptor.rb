@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "delegate"
+
 module ProtoPlugin
   # A wrapper class around `Google::Protobuf::FileDescriptorProto`
   # which provides helpers and more idiomatic Ruby access patterns.
