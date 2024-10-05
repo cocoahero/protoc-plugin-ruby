@@ -69,5 +69,17 @@ module ProtoPlugin
       end
       split ? @namespace.split("::") : @namespace
     end
+
+    # The services defined in this file.
+    #
+    # @return [Array]
+    #
+    # @see https://github.com/protocolbuffers/protobuf/blob/v28.2/src/google/protobuf/descriptor.proto#L112
+    #   Google::Protobuf::DescriptorProto#service
+    def services
+      @services ||= @descriptor.service.map do |s|
+        ServiceDescriptor.new(s, self)
+      end
+    end
   end
 end
