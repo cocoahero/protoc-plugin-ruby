@@ -22,7 +22,7 @@ module ProtoPlugin
 
     # The enums defined as children of this file.
     #
-    # @return [Array]
+    # @return [Array<EnumDescriptor>]
     #
     # @see https://github.com/protocolbuffers/protobuf/blob/v28.2/src/google/protobuf/descriptor.proto#L111
     #   Google::Protobuf::DescriptorProto#enum_type
@@ -34,7 +34,7 @@ module ProtoPlugin
 
     # The messages defined as children of this file.
     #
-    # @return [Array]
+    # @return [Array<MessageDescriptor>]
     #
     # @see https://github.com/protocolbuffers/protobuf/blob/v28.2/src/google/protobuf/descriptor.proto#L110
     #   Google::Protobuf::DescriptorProto#message_type
@@ -58,7 +58,7 @@ module ProtoPlugin
     # @param split [Boolean] Returns the namespace as an array of module names.
     #
     # @return [String] The namespace for the file.
-    # @return [Array] If `split: true`, the namespace as an array of module names.
+    # @return [Array<String>] If `split: true`, the namespace as an array of module names.
     def namespace(split: false)
       @namespace ||= begin
         namespace = @descriptor.options&.ruby_package
@@ -74,7 +74,7 @@ module ProtoPlugin
 
     # The services defined in this file.
     #
-    # @return [Array]
+    # @return [Array<ServiceDescriptor>]
     #
     # @see https://github.com/protocolbuffers/protobuf/blob/v28.2/src/google/protobuf/descriptor.proto#L112
     #   Google::Protobuf::DescriptorProto#service

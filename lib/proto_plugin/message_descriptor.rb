@@ -31,7 +31,7 @@ module ProtoPlugin
 
     # The enums defined as children of this message.
     #
-    # @return [Array]
+    # @return [Array<EnumDescriptor>]
     #
     # @see https://github.com/protocolbuffers/protobuf/blob/v28.2/src/google/protobuf/descriptor.proto#L141
     #   Google::Protobuf::DescriptorProto#enum_type
@@ -43,7 +43,7 @@ module ProtoPlugin
 
     # The messages defined as children of this message.
     #
-    # @return [Array]
+    # @return [Array<MessageDescriptor>]
     #
     # @see https://github.com/protocolbuffers/protobuf/blob/v28.2/src/google/protobuf/descriptor.proto#L140
     #   Google::Protobuf::DescriptorProto#nested_type

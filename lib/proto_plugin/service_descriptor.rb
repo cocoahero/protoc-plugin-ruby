@@ -40,7 +40,7 @@ module ProtoPlugin
     #
     # @note This method is named `rpc_methods` to avoid conflicting with Object#methods.
     #
-    # @return [Array]
+    # @return [Array<MethodDescriptor>]
     #
     # @see https://github.com/protocolbuffers/protobuf/blob/v28.2/src/google/protobuf/descriptor.proto#L375
     #   Google::Protobuf::ServiceDescriptorProto#method

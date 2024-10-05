@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Easily build protobuf compiler plugins in Ruby.
 module ProtoPlugin
 end
 
