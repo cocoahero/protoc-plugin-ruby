@@ -35,5 +35,19 @@ module ProtoPlugin
     def full_name
       @full_name ||= "#{parent.namespace}::#{name}"
     end
+
+    # The methods defined for the service.
+    #
+    # @note This method is named `rpc_methods` to avoid conflicting with Object#methods.
+    #
+    # @return [Array]
+    #
+    # @see https://github.com/protocolbuffers/protobuf/blob/v28.2/src/google/protobuf/descriptor.proto#L375
+    #   Google::Protobuf::ServiceDescriptorProto#method
+    def rpc_methods
+      @rpc_methods ||= @descriptor["method"].map do |m|
+        MethodDescriptor.new(m, self)
+      end
+    end
   end
 end
