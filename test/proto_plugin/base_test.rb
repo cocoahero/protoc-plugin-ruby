@@ -18,7 +18,7 @@ module ProtoPlugin
     end
 
     def setup
-      @request = requests(:simple)
+      @request = load_request_fixture
       @plugin = TestPlugin.new(request: @request)
     end
 
@@ -38,14 +38,18 @@ module ProtoPlugin
     def test_files_to_generate
       files = @plugin.files_to_generate
 
-      assert_equal(1, files.count)
-      assert_instance_of(FileDescriptor, files.first)
-      assert_equal("test/fixtures/simple/simple.proto", files.first.name)
+      assert_equal(3, files.count)
+
+      files.each do |f|
+        assert_instance_of(FileDescriptor, f)
+      end
     end
 
     def test_lookup_file
-      refute_nil(@plugin.lookup_file(name: "test/fixtures/simple/simple.proto"))
-      assert_nil(@plugin.lookup_file(name: "test/fixtures/simple/missing.proto"))
+      refute_nil(@plugin.lookup_file(name: "article.proto"))
+      refute_nil(@plugin.lookup_file(name: "comment.proto"))
+      refute_nil(@plugin.lookup_file(name: "service.proto"))
+      assert_nil(@plugin.lookup_file(name: "missing.proto"))
     end
 
     def test_parameters

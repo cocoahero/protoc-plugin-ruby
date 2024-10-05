@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module ProtoPlugin
+  # A set of utility functions used by the library.
   module Utils
     class << self
       # Converts string to UpperCamelCase.

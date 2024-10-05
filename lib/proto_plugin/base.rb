@@ -83,7 +83,7 @@ module ProtoPlugin
     #     <ProtoPlugin::FileDescriptor: name: "input_two.proto">
     #   ]
     #
-    # @return [Array]
+    # @return [Array<FileDescriptor>]
     def files_to_generate
       @files_to_generate ||= request.file_to_generate.filter_map do |filename|
         lookup_file(name: filename)

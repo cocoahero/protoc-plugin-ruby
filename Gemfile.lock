@@ -9,12 +9,19 @@ GEM
   specs:
     ast (2.4.2)
     bigdecimal (3.1.8)
+    debug (1.9.2)
+      irb (~> 1.10)
+      reline (>= 0.3.8)
     google-protobuf (4.28.0)
       bigdecimal
       rake (>= 13)
     google-protobuf (4.28.0-arm64-darwin)
       bigdecimal
       rake (>= 13)
+    io-console (0.7.2)
+    irb (1.14.1)
+      rdoc (>= 4.0.0)
+      reline (>= 0.4.2)
     json (2.7.2)
     language_server-protocol (3.17.0.3)
     minitest (5.25.1)
@@ -22,10 +29,16 @@ GEM
     parser (3.3.4.2)
       ast (~> 2.4.1)
       racc
+    psych (5.1.2)
+      stringio
     racc (1.8.1)
     rainbow (3.1.1)
     rake (13.2.1)
+    rdoc (6.7.0)
+      psych (>= 4.0.0)
     regexp_parser (2.9.2)
+    reline (0.5.10)
+      io-console (~> 0.5)
     rubocop (1.66.0)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
@@ -41,6 +54,7 @@ GEM
     rubocop-shopify (2.15.1)
       rubocop (~> 1.51)
     ruby-progressbar (1.13.0)
+    stringio (3.1.1)
     unicode-display_width (2.5.0)
     yard (0.9.37)
 
@@ -49,6 +63,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  debug
   minitest
   proto_plugin!
   rake

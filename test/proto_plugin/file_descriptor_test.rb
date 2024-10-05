@@ -54,6 +54,28 @@ module ProtoPlugin
       assert_instance_of(MessageDescriptor, message_two)
     end
 
+    def test_services
+      file = FileDescriptor.new(
+        Google::Protobuf::FileDescriptorProto.new(
+          package: "my.package.name", service: [
+            Google::Protobuf::ServiceDescriptorProto.new(
+              name: "ServiceOne",
+            ),
+            Google::Protobuf::ServiceDescriptorProto.new(
+              name: "ServiceTwo",
+            ),
+          ]
+        ),
+      )
+      assert_equal(2, file.services.count)
+
+      service_one = file.services[0]
+      assert_instance_of(ServiceDescriptor, service_one)
+
+      service_two = file.services[1]
+      assert_instance_of(ServiceDescriptor, service_two)
+    end
+
     def test_namespace_without_package
       file = FileDescriptor.new(Google::Protobuf::FileDescriptorProto.new(
         name: "sample.proto",

@@ -14,15 +14,20 @@ end
 if ENV["RUN"]
   FixtureUpdater.run!
 else
-  dest = File.join("test", "fixtures", "simple.pb")
+  files_out = File.join("test", "fixtures", "blog.fds")
+  request_out = File.join("test", "fixtures", "blog.cgr")
+
   Dir.mktmpdir do |tmp|
     %x(
       RUN=1 \
       protoc \
+      --include_imports \
+      --descriptor_set_out=#{files_out} \
       --plugin=protoc-gen-fixtures=#{__FILE__} \
-      --fixtures_opt=dest=#{dest} \
+      --fixtures_opt=dest=#{request_out} \
       --fixtures_out=#{tmp} \
-      test/fixtures/simple/*.proto
+      --proto_path=test/fixtures/blog \
+      test/fixtures/blog/*.proto
     )
   end
 end
