@@ -4,7 +4,7 @@ module ProtoPlugin
   # A wrapper class around `Google::Protobuf::DescriptorProto`
   # which provides helpers and more idiomatic Ruby access patterns.
   #
-  # Any method not defined directly is delegated to the descriptor the wrapper was intialized with.
+  # Any method not defined directly is delegated to the descriptor the wrapper was initialized with.
   #
   # @see https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/descriptor.proto#L134
   #   Google::Protobuf::DescriptorProto
@@ -39,9 +39,22 @@ module ProtoPlugin
       end
     end
 
-    def namespace(split: false)
-      @namespace ||= [parent.namespace, parent.name].join("::")
-      split ? @namespace.split("::") : @namespace
+    # The full name of the message, including parent namespace.
+    #
+    # @example
+    #   "My::Ruby::Package::MessageName"
+    #
+    # @return [String]
+    def full_name
+      @full_name ||= begin
+        prefix = case parent
+        when MessageDescriptor
+          parent.full_name
+        when FileDescriptor
+          parent.namespace
+        end
+        "#{prefix}::#{name}"
+      end
     end
   end
 end
