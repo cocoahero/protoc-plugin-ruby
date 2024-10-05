@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package proto_plugin.fixtures;
+
+import "google/protobuf/timestamp.proto";
+
+import "comment.proto";
+
+message Article {
+    uint64 id = 1;
+    
+    string title = 2;
+
+    Author author = 3;
+
+    string content = 4;
+
+    google.protobuf.Timestamp published_at = 5;
+
+    repeated Comment comments = 6;
+
+    message Author {
+        string name = 1;
+
+        string email = 2;
+
+        string avatar = 3;
+    }
+}

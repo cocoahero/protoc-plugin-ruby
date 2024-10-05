@@ -1,7 +1,0 @@
-syntax = "proto3";
-
-package proto_plugin.fixtures.simple;
-
-message HelloWorld {
-    string name = 1;
-}

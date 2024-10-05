@@ -4,25 +4,18 @@ module ProtoPlugin
   class ServiceDescriptorTest < Minitest::Test
     def setup
       @file = FileDescriptor.new(
-        Google::Protobuf::FileDescriptorProto.new(
-          package: "my.package.name",
-          service: [
-            Google::Protobuf::ServiceDescriptorProto.new(
-              name: "MyService",
-            ),
-          ],
-        ),
+        load_file_fixture("service.proto"),
       )
 
       @service = @file.services.first
     end
 
     def test_name
-      assert_equal("MyService", @service.name)
+      assert_equal("ArticlesService", @service.name)
     end
 
     def test_full_name
-      assert_equal("My::Package::Name::MyService", @service.full_name)
+      assert_equal("ProtoPlugin::Fixtures::ArticlesService", @service.full_name)
     end
   end
 end

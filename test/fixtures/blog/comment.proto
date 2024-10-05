@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package proto_plugin.fixtures;
+
+import "google/protobuf/timestamp.proto";
+
+message Comment {
+    uint64 id = 1;
+
+    string username = 2;
+
+    string content = 3;
+
+    google.protobuf.Timestamp created_at = 4;
+
+    Status status = 5;
+
+    enum Status {
+        UNKNOWN   = 0;
+        PENDING   = 1;
+        PUBLISHED = 2;
+        MODERATED = 3;
+        DELETED   = 4;
+    }
+}

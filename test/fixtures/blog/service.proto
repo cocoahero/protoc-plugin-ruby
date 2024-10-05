@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package proto_plugin.fixtures;
+
+import "article.proto";
+
+service ArticlesService {
+    rpc GetArticle(GetArticleRequest) returns (GetArticleResponse);
+
+    rpc GetArticles(GetArticlesRequest) returns (GetArticlesResponse);
+}
+
+message GetArticleRequest {
+    uint64 article_id = 1;
+}
+
+message GetArticleResponse {
+    Article article = 1;
+}
+
+message GetArticlesRequest {
+    uint32 page = 1;
+}
+
+message GetArticlesResponse {
+    repeated Article articles = 1;
+}
