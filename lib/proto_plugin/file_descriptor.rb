@@ -6,7 +6,7 @@ module ProtoPlugin
   #
   # Any method not defined directly is delegated to the descriptor the wrapper was initialized with.
   #
-  # @see https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/descriptor.proto#L97
+  # @see https://github.com/protocolbuffers/protobuf/blob/v28.2/src/google/protobuf/descriptor.proto#L97
   #   Google::Protobuf::FileDescriptorProto
   class FileDescriptor < SimpleDelegator
     # @return [Google::Protobuf::FileDescriptorProto]
@@ -18,6 +18,24 @@ module ProtoPlugin
       @descriptor = descriptor
     end
 
+    # The enums defined as children of this file.
+    #
+    # @return [Array]
+    #
+    # @see https://github.com/protocolbuffers/protobuf/blob/v28.2/src/google/protobuf/descriptor.proto#L111
+    #   Google::Protobuf::DescriptorProto#enum_type
+    def enums
+      @enums ||= @descriptor.enum_type.map do |e|
+        EnumDescriptor.new(e, self)
+      end
+    end
+
+    # The messages defined as children of this file.
+    #
+    # @return [Array]
+    #
+    # @see https://github.com/protocolbuffers/protobuf/blob/v28.2/src/google/protobuf/descriptor.proto#L110
+    #   Google::Protobuf::DescriptorProto#message_type
     def messages
       @messages ||= @descriptor.message_type.map do |m|
         MessageDescriptor.new(m, self)

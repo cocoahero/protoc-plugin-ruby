@@ -6,7 +6,7 @@ module ProtoPlugin
   #
   # Any method not defined directly is delegated to the descriptor the wrapper was initialized with.
   #
-  # @see https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/descriptor.proto#L134
+  # @see https://github.com/protocolbuffers/protobuf/blob/v28.2/src/google/protobuf/descriptor.proto#L134
   #   Google::Protobuf::DescriptorProto
   class MessageDescriptor < SimpleDelegator
     # @return [Google::Protobuf::DescriptorProto]
@@ -27,11 +27,23 @@ module ProtoPlugin
       @parent = parent
     end
 
+    # The enums defined as children of this message.
+    #
+    # @return [Array]
+    #
+    # @see https://github.com/protocolbuffers/protobuf/blob/v28.2/src/google/protobuf/descriptor.proto#L141
+    #   Google::Protobuf::DescriptorProto#enum_type
+    def enums
+      @enums ||= @descriptor.enum_type.map do |e|
+        EnumDescriptor.new(e, self)
+      end
+    end
+
     # The messages defined as children of this message.
     #
     # @return [Array]
     #
-    # @see https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/descriptor.proto#L140
+    # @see https://github.com/protocolbuffers/protobuf/blob/v28.2/src/google/protobuf/descriptor.proto#L140
     #   Google::Protobuf::DescriptorProto#nested_type
     def messages
       @nested_messages ||= @descriptor.nested_type.map do |m|
