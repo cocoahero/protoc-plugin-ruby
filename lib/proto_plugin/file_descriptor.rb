@@ -18,6 +18,13 @@ module ProtoPlugin
       @descriptor = descriptor
     end
 
+
+    # The messages defined as children of this file.
+    #
+    # @return [Array]
+    #
+    # @see https://github.com/protocolbuffers/protobuf/blob/v28.2/src/google/protobuf/descriptor.proto#L110
+    #   Google::Protobuf::DescriptorProto#message_type
     def messages
       @messages ||= @descriptor.message_type.map do |m|
         MessageDescriptor.new(m, self)
