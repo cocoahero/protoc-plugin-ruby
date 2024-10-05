@@ -9,6 +9,28 @@ module ProtoPlugin
       assert_equal("sample.proto", file.name)
     end
 
+    def test_messages
+      file = FileDescriptor.new(
+        Google::Protobuf::FileDescriptorProto.new(
+          package: "my.package.name", message_type: [
+            Google::Protobuf::DescriptorProto.new(
+              name: "RootMessageOne",
+            ),
+            Google::Protobuf::DescriptorProto.new(
+              name: "RootMessageTwo",
+            ),
+          ]
+        ),
+      )
+      assert_equal(2, file.messages.count)
+
+      message_one = file.messages[0]
+      assert_instance_of(MessageDescriptor, message_one)
+
+      message_two = file.messages[1]
+      assert_instance_of(MessageDescriptor, message_two)
+    end
+
     def test_namespace_without_package
       file = FileDescriptor.new(Google::Protobuf::FileDescriptorProto.new(
         name: "sample.proto",
