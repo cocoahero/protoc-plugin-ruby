@@ -9,6 +9,29 @@ module ProtoPlugin
       assert_equal("sample.proto", file.name)
     end
 
+    def test_enums
+      file = FileDescriptor.new(
+        Google::Protobuf::FileDescriptorProto.new(
+          package: "my.package.name", enum_type: [
+            Google::Protobuf::EnumDescriptorProto.new(
+              name: "RootEnumOne",
+            ),
+            Google::Protobuf::EnumDescriptorProto.new(
+              name: "RootEnumTwo",
+            ),
+          ]
+        ),
+      )
+
+      assert_equal(2, file.enums.count)
+
+      enum_one = file.enums[0]
+      assert_instance_of(EnumDescriptor, enum_one)
+
+      enum_two = file.enums[1]
+      assert_instance_of(EnumDescriptor, enum_two)
+    end
+
     def test_messages
       file = FileDescriptor.new(
         Google::Protobuf::FileDescriptorProto.new(

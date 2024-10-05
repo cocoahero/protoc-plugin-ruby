@@ -27,6 +27,18 @@ module ProtoPlugin
       @parent = parent
     end
 
+    # The enums defined as children of this message.
+    #
+    # @return [Array]
+    #
+    # @see https://github.com/protocolbuffers/protobuf/blob/v28.2/src/google/protobuf/descriptor.proto#L141
+    #   Google::Protobuf::DescriptorProto#enum_type
+    def enums
+      @enums ||= @descriptor.enum_type.map do |e|
+        EnumDescriptor.new(e, self)
+      end
+    end
+
     # The messages defined as children of this message.
     #
     # @return [Array]

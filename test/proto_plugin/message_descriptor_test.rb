@@ -5,18 +5,30 @@ module ProtoPlugin
     def setup
       @file = FileDescriptor.new(
         Google::Protobuf::FileDescriptorProto.new(
-          package: "my.package.name", message_type: [
+          package: "my.package.name",
+          message_type: [
             Google::Protobuf::DescriptorProto.new(
-              name: "RootMessage", nested_type: [
+              name: "RootMessage",
+              nested_type: [
                 Google::Protobuf::DescriptorProto.new(
                   name: "ChildMessageOne",
                 ),
                 Google::Protobuf::DescriptorProto.new(
                   name: "ChildMessageTwo",
                 ),
-              ]
+              ],
+              enum_type: [
+                Google::Protobuf::EnumDescriptorProto.new(
+                  name: "ChildEnumOne",
+                ),
+              ],
             ),
-          ]
+          ],
+          enum_type: [
+            Google::Protobuf::EnumDescriptorProto.new(
+              name: "RootEnum",
+            ),
+          ],
         ),
       )
 
@@ -25,6 +37,11 @@ module ProtoPlugin
 
     def test_name
       assert_equal("RootMessage", @message.name)
+    end
+
+    def test_enums
+      assert_equal(1, @message.enums.count)
+      assert_equal("ChildEnumOne", @message.enums.first.name)
     end
 
     def test_messages
