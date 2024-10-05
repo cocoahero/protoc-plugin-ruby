@@ -6,7 +6,7 @@ module ProtoPlugin
   #
   # Any method not defined directly is delegated to the descriptor the wrapper was initialized with.
   #
-  # @see https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/descriptor.proto#L97
+  # @see https://github.com/protocolbuffers/protobuf/blob/v28.2/src/google/protobuf/descriptor.proto#L97
   #   Google::Protobuf::FileDescriptorProto
   class FileDescriptor < SimpleDelegator
     # @return [Google::Protobuf::FileDescriptorProto]
