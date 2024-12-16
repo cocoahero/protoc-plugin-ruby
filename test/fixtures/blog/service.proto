@@ -8,6 +8,8 @@ service ArticlesService {
     rpc GetArticle(GetArticleRequest) returns (GetArticleResponse);
 
     rpc GetArticles(GetArticlesRequest) returns (GetArticlesResponse);
+
+    rpc ArticleStream(ArticleStreamRequest) returns (stream ArticleStreamEvent);
 }
 
 message GetArticleRequest {
@@ -24,4 +26,10 @@ message GetArticlesRequest {
 
 message GetArticlesResponse {
     repeated Article articles = 1;
+}
+
+message ArticleStreamRequest {}
+
+message ArticleStreamEvent {
+    Article article = 1;
 }
