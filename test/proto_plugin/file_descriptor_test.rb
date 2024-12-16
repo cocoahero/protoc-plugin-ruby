@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "test_helper"
+
 module ProtoPlugin
   class FileDescriptorTest < Minitest::Test
     def test_name
