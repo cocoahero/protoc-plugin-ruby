@@ -14,9 +14,11 @@ module ProtoPlugin
     # @return [Google::Protobuf::FileDescriptorProto]
     attr_reader :descriptor
 
+    # @param context [Context]
     # @param descriptor [Google::Protobuf::FileDescriptorProto]
-    def initialize(descriptor)
-      super
+    def initialize(context, descriptor)
+      super(descriptor)
+      @context = context
       @descriptor = descriptor
     end
 
