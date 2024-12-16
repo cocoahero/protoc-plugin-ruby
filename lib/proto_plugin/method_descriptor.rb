@@ -25,5 +25,33 @@ module ProtoPlugin
       @descriptor = descriptor
       @service = service
     end
+
+    # Returns true if the client may stream multiple client messages.
+    #
+    # @return [Boolean]
+    def client_streaming?
+      descriptor.client_streaming
+    end
+
+    # Returns true if the server may stream multiple server messages.
+    #
+    # @return [Boolean]
+    def server_streaming?
+      descriptor.server_streaming
+    end
+
+    # Returns true if both the client and server only may send single messages.
+    #
+    # @return [Boolean]
+    def unary?
+      !client_streaming? && !server_streaming?
+    end
+
+    # Returns true if both the client and server may send multiple streamed messages.
+    #
+    # @return [Boolean]
+    def bidirectional_streaming?
+      client_streaming? && server_streaming?
+    end
   end
 end

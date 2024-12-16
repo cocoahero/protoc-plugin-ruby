@@ -21,14 +21,14 @@ module ProtoPlugin
     end
 
     def test_rpc_methods
-      assert_equal(2, @service.rpc_methods.count)
+      assert_equal(3, @service.rpc_methods.count)
 
       @service.rpc_methods.each do |m|
         assert_instance_of(MethodDescriptor, m)
       end
 
       assert_equal(
-        ["GetArticle", "GetArticles"],
+        ["GetArticle", "GetArticles", "ArticleStream"],
         @service.rpc_methods.map(&:name),
       )
     end
